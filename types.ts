@@ -1,4 +1,11 @@
 
+export interface Badge {
+  id: string;
+  label: string;
+  color: 'indigo' | 'green' | 'amber' | 'blue' | 'rose' | 'purple';
+  icon: string;
+}
+
 export interface Mentor {
   id: string;
   name: string;
@@ -11,6 +18,7 @@ export interface Mentor {
   tags: string[];
   bio: string;
   languages: string[];
+  badges: Badge[];
 }
 
 export interface ReviewRequest {

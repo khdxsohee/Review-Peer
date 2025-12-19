@@ -15,9 +15,14 @@ import {
   Zap,
   CheckCircle2,
   ChevronRight,
-  Star
+  Star,
+  Award,
+  Flame,
+  Clock,
+  Briefcase,
+  Trophy
 } from 'lucide-react';
-import { Mentor, ReviewRequest, Message } from './types';
+import { Mentor, ReviewRequest, Message, Badge } from './types';
 import { getCodeAnalysis, getChatResponse } from './services/geminiService';
 
 const MOCK_MENTORS: Mentor[] = [
@@ -32,7 +37,12 @@ const MOCK_MENTORS: Mentor[] = [
     price: 49,
     tags: ['React', 'TypeScript', 'Node.js'],
     bio: 'Expert in frontend architecture and developer experience. Ex-Netlify, ex-Microsoft.',
-    languages: ['JavaScript', 'TypeScript', 'Go']
+    languages: ['JavaScript', 'TypeScript', 'Go'],
+    badges: [
+      { id: 'b1', label: 'FAANG Expert', color: 'indigo', icon: 'Briefcase' },
+      { id: 'b2', label: 'Top Rated', color: 'amber', icon: 'Star' },
+      { id: 'b3', label: 'Fast Reviewer', color: 'green', icon: 'Clock' }
+    ]
   },
   {
     id: '2',
@@ -45,7 +55,11 @@ const MOCK_MENTORS: Mentor[] = [
     price: 99,
     tags: ['React', 'Architecture', 'API Design'],
     bio: 'Co-author of Redux and Create React App. Dedicated to making complex systems simple.',
-    languages: ['JavaScript', 'Rust', 'C++']
+    languages: ['JavaScript', 'Rust', 'C++'],
+    badges: [
+      { id: 'b4', label: 'React Legend', color: 'blue', icon: 'Award' },
+      { id: 'b5', label: 'High Demand', color: 'rose', icon: 'Flame' }
+    ]
   },
   {
     id: '3',
@@ -58,9 +72,44 @@ const MOCK_MENTORS: Mentor[] = [
     price: 75,
     tags: ['Fullstack', 'Testing', 'Remix'],
     bio: 'Quality software is built on quality testing. I help devs build more with less bugs.',
-    languages: ['JavaScript', 'HTML/CSS', 'SQL']
+    languages: ['JavaScript', 'HTML/CSS', 'SQL'],
+    badges: [
+      { id: 'b6', label: 'Master Teacher', color: 'purple', icon: 'Trophy' },
+      { id: 'b7', label: 'Testing Guru', color: 'indigo', icon: 'ShieldCheck' }
+    ]
   }
 ];
+
+const BadgeIcon = ({ name, size = 12 }: { name: string; size?: number }) => {
+  switch (name) {
+    case 'Briefcase': return <Briefcase size={size} />;
+    case 'Star': return <Star size={size} />;
+    case 'Clock': return <Clock size={size} />;
+    case 'Award': return <Award size={size} />;
+    case 'Flame': return <Flame size={size} />;
+    case 'Trophy': return <Trophy size={size} />;
+    case 'ShieldCheck': return <ShieldCheck size={size} />;
+    default: return <Award size={size} />;
+  }
+};
+
+const BadgePill = ({ badge }: { badge: Badge }) => {
+  const colors = {
+    indigo: 'bg-indigo-500/10 text-indigo-400 border-indigo-500/20',
+    green: 'bg-green-500/10 text-green-400 border-green-500/20',
+    amber: 'bg-amber-500/10 text-amber-400 border-amber-500/20',
+    blue: 'bg-blue-500/10 text-blue-400 border-blue-500/20',
+    rose: 'bg-rose-500/10 text-rose-400 border-rose-500/20',
+    purple: 'bg-purple-500/10 text-purple-400 border-purple-500/20',
+  };
+
+  return (
+    <span className={`inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-bold border ${colors[badge.color]}`}>
+      <BadgeIcon name={badge.icon} size={10} />
+      {badge.label.toUpperCase()}
+    </span>
+  );
+};
 
 const LandingPage = ({ onExplore }: { onExplore: () => void }) => (
   <div className="flex flex-col min-h-screen">
@@ -181,13 +230,20 @@ const Marketplace = ({ onSelectMentor }: { onSelectMentor: (mentor: Mentor) => v
 
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
         {filteredMentors.map(mentor => (
-          <div key={mentor.id} className="bg-zinc-900 border border-zinc-800 rounded-2xl overflow-hidden hover:border-zinc-700 transition-all flex flex-col">
+          <div key={mentor.id} className="bg-zinc-900 border border-zinc-800 rounded-2xl overflow-hidden hover:border-zinc-700 transition-all flex flex-col group">
             <div className="p-6">
               <div className="flex items-start justify-between mb-4">
-                <img src={mentor.avatar} alt={mentor.name} className="w-16 h-16 rounded-xl object-cover" />
-                <div className="flex items-center gap-1 bg-zinc-800 px-2 py-1 rounded-lg text-sm text-yellow-500 font-bold">
-                  <Star size={14} fill="currentColor" />
-                  {mentor.rating}
+                <div className="relative">
+                  <img src={mentor.avatar} alt={mentor.name} className="w-16 h-16 rounded-xl object-cover ring-2 ring-zinc-800 group-hover:ring-indigo-500/50 transition-all" />
+                  <div className="absolute -bottom-1 -right-1 flex items-center gap-1 bg-zinc-800 px-2 py-0.5 rounded-lg text-[10px] text-yellow-500 font-bold border border-zinc-700">
+                    <Star size={10} fill="currentColor" />
+                    {mentor.rating}
+                  </div>
+                </div>
+                <div className="flex flex-col gap-1.5 items-end">
+                  {mentor.badges.map(badge => (
+                    <BadgePill key={badge.id} badge={badge} />
+                  ))}
                 </div>
               </div>
               <h3 className="text-xl font-bold mb-1">{mentor.name}</h3>
@@ -199,7 +255,7 @@ const Marketplace = ({ onSelectMentor }: { onSelectMentor: (mentor: Mentor) => v
                 ))}
               </div>
             </div>
-            <div className="mt-auto p-6 border-t border-zinc-800 flex items-center justify-between">
+            <div className="mt-auto p-6 border-t border-zinc-800 flex items-center justify-between bg-zinc-900/50">
               <div>
                 <span className="text-2xl font-bold text-white">${mentor.price}</span>
                 <span className="text-zinc-500 text-sm ml-1">/review</span>
@@ -324,11 +380,24 @@ const CheckoutModal = ({ mentor, onClose, onComplete }: { mentor: Mentor; onClos
 };
 
 const Dashboard = ({ activeReview, onChat }: { activeReview: ReviewRequest | null; onChat: () => void }) => {
+  const userBadges: Badge[] = [
+    { id: 'ub1', label: 'Early Adopter', color: 'indigo', icon: 'Clock' },
+    { id: 'ub2', label: 'Clean Coder', color: 'green', icon: 'CheckCircle2' },
+  ];
+
   return (
     <div className="max-w-7xl mx-auto px-4 py-12">
-      <div className="flex items-center justify-between mb-8">
-        <h1 className="text-3xl font-bold">Your Dashboard</h1>
+      <div className="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
+        <div>
+          <h1 className="text-3xl font-bold">Your Dashboard</h1>
+          <p className="text-zinc-500 text-sm mt-1">Manage your reviews and track your growth.</p>
+        </div>
         <div className="flex items-center gap-4">
+          <div className="flex gap-2">
+            {userBadges.map(badge => (
+              <BadgePill key={badge.id} badge={badge} />
+            ))}
+          </div>
           <button className="px-4 py-2 bg-zinc-900 border border-zinc-800 rounded-lg text-sm font-medium hover:bg-zinc-800 transition-all">
             Refresh Status
           </button>
@@ -397,23 +466,41 @@ const Dashboard = ({ activeReview, onChat }: { activeReview: ReviewRequest | nul
 
           <div className="bg-zinc-900 border border-zinc-800 rounded-2xl overflow-hidden">
             <div className="p-6 border-b border-zinc-800">
-              <h2 className="font-bold flex items-center gap-2"><TrendingUp size={20} /> Skill Progression</h2>
+              <h2 className="font-bold flex items-center gap-2"><Award size={20} className="text-purple-400" /> Skill Badges & Progression</h2>
             </div>
             <div className="p-8">
-              <div className="flex items-center justify-between mb-8">
-                <div>
-                  <p className="text-zinc-500 text-sm mb-1">Architecture Score</p>
-                  <p className="text-2xl font-bold">78% <span className="text-green-500 text-sm font-normal">↑ 12%</span></p>
-                </div>
-                <div className="text-right">
-                  <p className="text-zinc-500 text-sm mb-1">Best Language</p>
-                  <p className="text-2xl font-bold">TypeScript</p>
+              <div className="flex flex-wrap gap-4 mb-8">
+                {userBadges.map(badge => (
+                  <div key={badge.id} className="p-4 bg-zinc-800/50 rounded-2xl border border-zinc-800 flex items-center gap-4 hover:border-zinc-700 transition-all w-full sm:w-auto">
+                    <div className={`w-12 h-12 rounded-xl flex items-center justify-center text-lg ${
+                      badge.color === 'indigo' ? 'bg-indigo-500/10 text-indigo-400' : 'bg-green-500/10 text-green-400'
+                    }`}>
+                      <BadgeIcon name={badge.icon} size={24} />
+                    </div>
+                    <div>
+                      <p className="font-bold text-sm">{badge.label}</p>
+                      <p className="text-xs text-zinc-500">Unlocked on {new Date().toLocaleDateString()}</p>
+                    </div>
+                  </div>
+                ))}
+                <div className="p-4 bg-zinc-800/20 rounded-2xl border border-zinc-800 border-dashed flex items-center gap-4 grayscale opacity-50 w-full sm:w-auto">
+                  <div className="w-12 h-12 rounded-xl bg-zinc-700/50 flex items-center justify-center text-lg text-zinc-600">
+                    <Trophy size={24} />
+                  </div>
+                  <div>
+                    <p className="font-bold text-sm">FAANG Ready</p>
+                    <p className="text-xs text-zinc-500">Locked: Need 5 more reviews</p>
+                  </div>
                 </div>
               </div>
-              <div className="h-4 bg-zinc-800 rounded-full overflow-hidden">
-                <div className="h-full bg-indigo-500 w-[78%] rounded-full" />
+              
+              <div className="flex items-center justify-between mb-3">
+                <p className="text-zinc-500 text-sm">Architecture Score</p>
+                <p className="text-sm font-bold">78%</p>
               </div>
-              <p className="text-xs text-zinc-500 mt-3 text-center italic">Keep going! Your last review improved your code readability by 15%.</p>
+              <div className="h-2 bg-zinc-800 rounded-full overflow-hidden">
+                <div className="h-full bg-indigo-500 w-[78%] rounded-full shadow-[0_0_10px_rgba(99,102,241,0.5)]" />
+              </div>
             </div>
           </div>
         </div>
@@ -423,12 +510,16 @@ const Dashboard = ({ activeReview, onChat }: { activeReview: ReviewRequest | nul
             <h3 className="font-bold mb-6 flex items-center gap-2"><Zap size={20} className="text-yellow-500" /> Suggested Mentors</h3>
             <div className="space-y-6">
               {MOCK_MENTORS.slice(1, 3).map(mentor => (
-                <div key={mentor.id} className="flex items-center justify-between">
+                <div key={mentor.id} className="flex items-center justify-between group">
                   <div className="flex items-center gap-3">
-                    <img src={mentor.avatar} className="w-10 h-10 rounded-lg object-cover" alt="" />
+                    <img src={mentor.avatar} className="w-10 h-10 rounded-lg object-cover ring-1 ring-zinc-800" alt="" />
                     <div>
-                      <p className="text-sm font-bold">{mentor.name}</p>
-                      <p className="text-xs text-zinc-500">{mentor.role}</p>
+                      <p className="text-sm font-bold group-hover:text-indigo-400 transition-colors">{mentor.name}</p>
+                      <div className="flex gap-1 mt-0.5">
+                        {mentor.badges.slice(0, 1).map(b => (
+                          <span key={b.id} className="text-[8px] text-zinc-500 uppercase tracking-tighter border border-zinc-800 px-1 rounded bg-zinc-950">{b.label}</span>
+                        ))}
+                      </div>
                     </div>
                   </div>
                   <button className="p-2 bg-zinc-800 rounded-lg hover:bg-zinc-700 transition-all">
@@ -486,20 +577,25 @@ const ChatView = ({ mentor }: { mentor: Mentor }) => {
   return (
     <div className="max-w-4xl mx-auto px-4 py-12 flex flex-col h-[calc(100vh-120px)]">
       <div className="bg-zinc-900 border border-zinc-800 rounded-2xl flex flex-col h-full overflow-hidden shadow-2xl">
-        <div className="p-6 border-b border-zinc-800 flex items-center justify-between">
+        <div className="p-6 border-b border-zinc-800 flex items-center justify-between bg-zinc-900/50 backdrop-blur">
           <div className="flex items-center gap-4">
             <div className="relative">
-              <img src={mentor.avatar} className="w-12 h-12 rounded-xl object-cover" alt="" />
+              <img src={mentor.avatar} className="w-12 h-12 rounded-xl object-cover ring-2 ring-zinc-800" alt="" />
               <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 border-2 border-zinc-900 rounded-full" />
             </div>
             <div>
-              <h3 className="font-bold">{mentor.name}</h3>
+              <div className="flex items-center gap-2">
+                <h3 className="font-bold">{mentor.name}</h3>
+                {mentor.badges.slice(0, 1).map(b => (
+                  <BadgePill key={b.id} badge={b} />
+                ))}
+              </div>
               <p className="text-xs text-zinc-500">{mentor.role} @ {mentor.company}</p>
             </div>
           </div>
           <div className="flex items-center gap-2">
-            <button className="p-2 bg-zinc-800 rounded-lg text-zinc-400 hover:text-white"><Zap size={18} /></button>
-            <button className="p-2 bg-zinc-800 rounded-lg text-zinc-400 hover:text-white"><ShieldCheck size={18} /></button>
+            <button className="p-2 bg-zinc-800 rounded-lg text-zinc-400 hover:text-white transition-colors"><Zap size={18} /></button>
+            <button className="p-2 bg-zinc-800 rounded-lg text-zinc-400 hover:text-white transition-colors"><ShieldCheck size={18} /></button>
           </div>
         </div>
 
@@ -508,11 +604,11 @@ const ChatView = ({ mentor }: { mentor: Mentor }) => {
             <div key={msg.id} className={`flex ${msg.senderId === 'user' ? 'justify-end' : 'justify-start'}`}>
               <div className={`max-w-[80%] p-4 rounded-2xl ${
                 msg.senderId === 'user' 
-                ? 'bg-indigo-600 text-white rounded-tr-none' 
+                ? 'bg-indigo-600 text-white rounded-tr-none shadow-lg shadow-indigo-600/10' 
                 : 'bg-zinc-800 text-zinc-100 rounded-tl-none border border-zinc-700'
               }`}>
-                <p className="text-sm leading-relaxed">{msg.text}</p>
-                <p className="text-[10px] mt-2 opacity-50 text-right">
+                <p className="text-sm leading-relaxed whitespace-pre-wrap">{msg.text}</p>
+                <p className="text-[10px] mt-2 opacity-50 text-right uppercase tracking-tighter">
                   {new Date(msg.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                 </p>
               </div>
@@ -521,9 +617,9 @@ const ChatView = ({ mentor }: { mentor: Mentor }) => {
           {isTyping && (
             <div className="flex justify-start">
               <div className="bg-zinc-800 p-4 rounded-2xl rounded-tl-none border border-zinc-700 flex gap-1.5">
-                <div className="w-1.5 h-1.5 bg-zinc-500 rounded-full animate-bounce" />
-                <div className="w-1.5 h-1.5 bg-zinc-500 rounded-full animate-bounce delay-75" />
-                <div className="w-1.5 h-1.5 bg-zinc-500 rounded-full animate-bounce delay-150" />
+                <div className="w-1.5 h-1.5 bg-indigo-500 rounded-full animate-bounce" />
+                <div className="w-1.5 h-1.5 bg-indigo-500 rounded-full animate-bounce delay-75" />
+                <div className="w-1.5 h-1.5 bg-indigo-500 rounded-full animate-bounce delay-150" />
               </div>
             </div>
           )}
@@ -533,20 +629,24 @@ const ChatView = ({ mentor }: { mentor: Mentor }) => {
           <div className="relative flex items-center gap-3">
             <input 
               type="text"
-              placeholder="Type your message..."
-              className="flex-1 bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/50"
+              placeholder="Ask about architectural patterns, performance, or best practices..."
+              className="flex-1 bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 transition-all"
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && handleSend()}
             />
             <button 
               onClick={handleSend}
-              className="p-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl transition-all"
+              className="p-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl transition-all shadow-lg shadow-indigo-600/20"
             >
               <ArrowRight size={20} />
             </button>
           </div>
-          <p className="text-[10px] text-zinc-600 mt-2 text-center uppercase tracking-widest font-bold">Encrypted End-to-End</p>
+          <div className="flex items-center justify-center gap-4 mt-2">
+            <p className="text-[10px] text-zinc-600 uppercase tracking-widest font-bold">Encrypted End-to-End</p>
+            <div className="h-1 w-1 bg-zinc-700 rounded-full" />
+            <p className="text-[10px] text-zinc-600 uppercase tracking-widest font-bold">AI Moderated</p>
+          </div>
         </div>
       </div>
     </div>
