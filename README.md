@@ -1,90 +1,97 @@
 
-# 🚀 ReviewPeer: Elite Peer-to-Peer Code Review Marketplace
+<div align="center">
 
-ReviewPeer is a specialized E-learning and Micro-Mentorship platform designed to bridge the gap between junior developers seeking industry-standard feedback and senior engineers from top-tier tech companies (FAANG, Unicorns) looking to share their expertise.
+# 🚀 ReviewPeer
+### Elite Peer-to-Peer Code Review Marketplace
 
-Unlike generic course platforms, ReviewPeer focuses on **Cohort-Based Learning** and **Personalized Code Audits**, solving the critical "feedback loop" problem in a developer's career journey.
+[![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
+[![React 19](https://img.shields.io/badge/React-19.0-blue?logo=react)](https://react.dev/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind-3.4+-38B2AC?logo=tailwind-css)](https://tailwindcss.com/)
+[![Gemini AI](https://img.shields.io/badge/AI-Gemini_3_Pro-orange?logo=google-gemini)](https://ai.google.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.0+-blue?logo=typescript)](https://www.typescriptlang.org/)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com)
+
+**ReviewPeer** is a specialized E-learning and Micro-Mentorship platform designed to bridge the gap between junior developers seeking industry-standard feedback and senior engineers from top-tier tech companies.
+
+[Explore Marketplace](#-key-features) • [How it Works](#-how-it-works) • [Tech Stack](#-tech-stack) • [Setup](#-installation--setup)
+
+</div>
 
 ---
 
 ## 🌟 Key Features
 
-### 1. Senior Mentor Marketplace
-- **Curated Selection:** Browse a directory of vetted senior engineers from companies like Google, Meta, and Microsoft.
-- **Transparent Pricing:** Clear per-review pricing models allowing juniors to get elite feedback without long-term commitments.
-- **Stack-Specific Filtering:** Filter mentors by language (TypeScript, Rust, Go) or expertise (Architecture, Testing, Frontend).
+### 🏆 Senior Mentor Marketplace
+- **Verified Expertise:** Browse mentors with dynamic badges like `FAANG Expert`, `React Legend`, and `Fast Responder`.
+- **Visual Trust:** Badges are tied to real platform performance metrics like response time and rating consistency.
+- **Micro-Mentorship:** Small-fee, high-impact reviews that solve the "unending feedback loop" problem.
 
-### 2. AI-Powered Initial Scans
-- **Gemini 3 Pro Integration:** Every repository submitted undergoes an immediate automated analysis.
-- **Instant Insights:** Provides a professional "pre-review" summary and specific line-by-line suggestions before the human mentor even opens the code.
-- **Architectural Analysis:** The AI focuses on FAANG-level best practices, identifying race conditions, performance bottlenecks, and clean code violations.
+### 🤖 AI-Powered Initial Scans
+- **Gemini 3 Pro Integration:** Immediate automated analysis as soon as a repository is submitted.
+- **Architectural Insights:** AI identifies race conditions, memory leaks, and performance bottlenecks before the mentor even begins.
+- **Professional Formatting:** Returns structured JSON feedback with severity levels and actionable suggestions.
 
-### 3. Real-Time Mentorship Chat
-- **Direct Access:** Integrated chat interface for juniors to discuss review findings directly with their assigned senior mentor.
-- **Contextual Learning:** Ask follow-up questions, request clarification on architectural choices, and receive career advice.
-- **Smart Responses:** Backed by Gemini Flash for high-speed, relevant developer assistance when mentors are offline.
+### 💬 Real-Time Mentorship Chat
+- **Direct Access:** Integrated high-performance chat interface for deep-dive discussions.
+- **Contextual Learning:** Backed by **Gemini Flash** to provide instant technical assistance when mentors are offline.
+- **Encrypted & Private:** Safe environment for discussing career growth and architectural trade-offs.
 
-### 4. Interactive Dashboard & Progression
-- **Active Review Tracking:** Real-time status updates for ongoing code audits.
-- **Skill Progression Visuals:** A data-driven approach to tracking your improvement in areas like "Architecture," "Performance," and "Readability."
-- **Suggested Learning:** AI-driven mentor recommendations based on your current project's tech stack.
-
-### 5. Seamless Payment & Integration
-- **GitHub First:** Built-in repository link validation.
-- **Secure Transactions:** Stripe-ready checkout flow for processing review fees securely.
-- **Senior Guarantee:** Refund policy and SLA tracking (48-hour review turnaround).
+### 📈 Gamified Skill Progression
+- **Dynamic Dashboards:** Track your "Architecture Score" and "Clean Code" metrics.
+- **User Achievements:** Earn collectible badges like `Early Adopter`, `Clean Coder`, and `Refactoring Master`.
+- **Roadmap Tracking:** Visual progression toward "FAANG Ready" status based on cumulative review data.
 
 ---
 
 ## 🛠 Tech Stack
 
-- **Frontend:** React 19 (ESM based)
-- **Styling:** Tailwind CSS (Modern, Dark-mode centric UI)
-- **Icons:** Lucide React
-- **Intelligence Engine:** Google Gemini API (`gemini-3-pro-preview` & `gemini-3-flash-preview`)
-- **State Management:** React Hooks (useState, useEffect)
-- **Architecture:** Component-based modular design
+| Technology | Purpose |
+| :--- | :--- |
+| <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/react/react-original.svg" width="20"> **React 19** | Modern UI & State Management |
+| <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/typescript/typescript-original.svg" width="20"> **TypeScript** | Type-Safe Professional Development |
+| <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/tailwindcss/tailwindcss-original.svg" width="20"> **Tailwind CSS** | Minimalist & Modern UI Design |
+| <img src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png" width="40"> **Gemini API** | AI Code Auditing & Smart Chat |
+| <img src="https://raw.githubusercontent.com/lucide-icons/lucide/master/icons/zap.svg" width="20"> **Lucide React** | Consistent & Clean Visual Iconography |
 
 ---
 
 ## 📖 How it Works
 
-1.  **Discovery:** A junior developer browses the marketplace and selects a mentor that matches their project's stack.
-2.  **Booking:** The user provides their GitHub repository URL and completes a secure payment.
-3.  **AI Scan:** ReviewPeer immediately triggers a Gemini-powered analysis of the repository to provide instant value.
-4.  **Expert Audit:** The Senior Mentor performs a manual, deep-dive review, focusing on logic, scalability, and industry standards.
-5.  **Iteration:** The junior and senior connect via the Real-time Chat to finalize the review and discuss career growth.
+1.  **🔍 Discovery:** Browse the marketplace and filter by specific skill badges and tech stacks.
+2.  **💳 Booking:** Provide your GitHub repo link and complete a secure, streamlined checkout.
+3.  **⚡ AI Scan:** Receive immediate value with a Gemini-powered preliminary audit.
+4.  **👨‍💻 Expert Audit:** Get a deep-dive manual review by your selected Senior Mentor.
+5.  **💬 Iteration:** Discuss findings in real-time, ask follow-up questions, and level up.
 
 ---
 
 ## 🚀 Installation & Setup
 
-1.  **Clone the Repository:**
-    ```bash
-    git clone https://github.com/your-username/review-peer.git
-    ```
-2.  **Environment Configuration:**
-    Ensure you have your Gemini API Key set in your environment:
-    ```env
-    API_KEY=your_gemini_api_key_here
-    ```
-3.  **Local Development:**
-    The project uses standard ES6 modules. Serve the root directory using any local web server (e.g., Live Server, Vite, or Python's `http.server`).
+### 1. Clone & Enter
+```bash
+git clone https://github.com/your-username/review-peer.git
+cd review-peer
+```
 
----
+### 2. Configure Environment
+Create an environment variable with your API key:
+```env
+API_KEY=your_gemini_api_key_here
+```
 
-## 🎯 Future Roadmap
-
-- [ ] **Direct GitHub API Pull:** Automatic fetching of PR comments.
-- [ ] **Live Video Sessions:** 1-on-1 pair programming integration.
-- [ ] **Enterprise Tier:** Onboarding entire engineering teams for internal peer reviews.
-- [ ] **Mentor Verification Badge:** Integration with LinkedIn/GitHub to verify employment history.
+### 3. Launch
+Serve the project using any modern static file server or your preferred build tool.
+```bash
+npx serve .
+```
 
 ---
 
 ## 📄 License
 
-ReviewPeer is released under the **MIT License**. Build better code, together.
+ReviewPeer is released under the **MIT License**. 
 
 ---
-*Built with ❤️ for the next generation of Software Engineers.*
+<div align="center">
+  Built with ❤️ for the next generation of Software Engineers.
+</div>
