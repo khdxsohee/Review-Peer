@@ -1,0 +1,8 @@
+{
+  "name": "ReviewPeer - Senior Code Reviews",
+  "description": "A peer-to-peer code review marketplace connecting junior developers with senior industry experts for deep-dive GitHub repository reviews and career mentorship.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ]
+}
