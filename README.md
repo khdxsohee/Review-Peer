@@ -93,5 +93,5 @@ ReviewPeer is released under the **MIT License**.
 
 ---
 <div align="center">
-  Built with ❤️ for the next generation of Software Engineers.
+  Built with ❤️ for the next generation of Software Engineers..
 </div>
